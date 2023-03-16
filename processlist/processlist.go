@@ -5,6 +5,8 @@
 
 package main
 
+import "fmt"
+
 type Process struct {
 	next    *Process
 	command string
@@ -12,11 +14,11 @@ type Process struct {
 }
 
 func (p *Process) SetPID(pid int) {
-	//fmt.Println("Process.Stop: Stopping", p.command)
+	fmt.Println("Process.Stop: Stopping", p.command)
 }
 
 func (p *Process) Run() {
-	//fmt.Printf("Process.Run: PID %d\t- Running %s\n", p.pid, p.command)
+	fmt.Printf("Process.Run: PID %d\t- Running %s\n", p.pid, p.command)
 }
 
 func NewProcess(command string) Process {
@@ -41,9 +43,9 @@ func (pm *PIDManager) AllocPIDForProcessList(pl *Process) int {
 	}
 	var pid int
 	for pid = pm.nextPid; isPIDInUse(pid, pl); pid++ {
-		// fmt.Println("PIDManager.AllocPIDForProcessList: Checking for PID", pid)
+		fmt.Println("PIDManager.AllocPIDForProcessList: Checking for PID", pid)
 	}
-	//fmt.Println("PIDManager.AllocPIDForProcessList: Using PID", pid)
+	fmt.Println("PIDManager.AllocPIDForProcessList: Using PID", pid)
 	return pid
 }
 
@@ -61,7 +63,7 @@ type Scheduler struct {
 }
 
 func (s *Scheduler) RunAll() (preemptedPidCount int) {
-	//fmt.Println("--- Scheduling ---")
+	fmt.Println("--- Scheduling ---")
 	preemptedPidCount = 0
 	for current := s.processListHead; current != nil; current = current.next {
 		current.Run()
@@ -77,16 +79,16 @@ func (s *Scheduler) InsertProcess(process Process) (pid int) {
 		s.processListHead = &process
 		s.processListTail = &process
 		s.processCount = 1
-		//fmt.Printf("Scheduler.InsertProcess: New process %s with PID %d\n",
-		//	process.command, process.pid)
+		fmt.Printf("Scheduler.InsertProcess: New process %s with PID %d\n",
+			process.command, process.pid)
 		return newPid
 	}
 	process.pid = pid
 	s.processListTail.next = &process
 	s.processListTail = &process
 	s.processCount++
-	//fmt.Printf("Scheduler.InsertProcess: New process %s with PID %d\n",
-	//	process.command, process.pid)
+	fmt.Printf("Scheduler.InsertProcess: New process %s with PID %d\n",
+		process.command, process.pid)
 	return newPid
 }
 

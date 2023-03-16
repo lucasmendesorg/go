@@ -7,8 +7,6 @@ package main
 
 import "fmt"
 
-const END = 1
-
 func QuickSort(arr []int, begin int, end int) []int {
 	var partition = func(arr []int, begin int, end int) int {
 		pivot := arr[end-1]
@@ -34,6 +32,6 @@ func QuickSort(arr []int, begin int, end int) []int {
 func main() {
 	arr := []int{8, 5, 12, 55, 3, 7, 82, 44, 35, 25, 41, 29, 17}
 	fmt.Println("            arr =", arr)
-	QuickSort(arr, 0, END)
+	QuickSort(arr, 0, len(arr))
 	fmt.Println("quicksorted arr =", arr)
 }

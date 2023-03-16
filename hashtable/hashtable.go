@@ -12,6 +12,10 @@ import (
 
 const HashTableArraySize = 100
 
+//
+// hasnTableNode
+//
+
 type hashTableNode struct {
 	next  *hashTableNode
 	key   string
@@ -47,6 +51,10 @@ func NewHashTableNode(key string, value int) hashTableNode {
 	}
 }
 
+//
+// Hash Table
+//
+
 type HashTable struct {
 	array [HashTableArraySize]*hashTableNode
 }
@@ -61,6 +69,7 @@ func (ht *HashTable) hash(key string) int {
 
 func (ht *HashTable) Set(key string, value int) {
 	hash := ht.hash(key)
+	fmt.Println("HashTable.Set: Hash for", key, "is", hash)
 	htn := NewHashTableNode(key, value)
 	if ht.array[hash] == nil {
 		ht.array[hash] = &htn
@@ -70,7 +79,7 @@ func (ht *HashTable) Set(key string, value int) {
 			ht.array[hash].Insert(htn)
 		} else {
 			found.value = value
-			ht.array[hash].Insert(*found)
+//			ht.array[hash].Insert(*found)
 		}
 	}
 }
@@ -79,6 +88,7 @@ func (ht *HashTable) Get(key string) (int, error) {
 	hash := ht.hash(key)
 	current := ht.array[hash]
 	for ; current != nil; current = current.next {
+		fmt.Println("HashTable.Get: Trying for key =", key)
 		if current.key == key {
 			return current.value, nil
 		}
@@ -92,16 +102,34 @@ func NewHashTable() HashTable {
 
 func main() {
 	ht := NewHashTable()
-	ht.Set("eric", 111)
-	ht.Set("erhd", 222)
-	eric, err := ht.Get("eric")
+	
+	ht.Set("eric", 111)			// ht["eric"] = 111;
+	ht.Set("erhd", 222)			// ht["erhd"] = 222;
+	ht.Set("luciano", 333)
+	ht.Set("lucas", 444)
+	
+	eric, err := ht.Get("eric")	// eric = ht["eric"];
 	if err != nil {
-		fmt.Println(eric)
+		fmt.Println(err)
 	}
 	fmt.Println("eric =", eric)
+	
 	erhd, err := ht.Get("erhd")
 	if err != nil {
-		fmt.Println(eric)
+		fmt.Println(err)
 	}
 	fmt.Println("erhd =", erhd)
+	
+	luciano, err := ht.Get("luciano")
+	if err != nil {
+		fmt.Println(err)
+	}
+	fmt.Println("luciano =", luciano)
+	
+	lucas, err := ht.Get("lucas")
+	if err != nil {
+		fmt.Println(err)
+	}
+	fmt.Println("lucas =", lucas)
+	
 }
