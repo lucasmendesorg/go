@@ -91,7 +91,7 @@ func (l *list) Dump() {
 func Newlist() *list {
 	return &list{}
 }
-/*
+
 func main() {
 	l := Newlist()
 	l.AppendByValue("One")
@@ -107,4 +107,3 @@ func main() {
 	l.RemoveByValue("Five")
 	l.Dump()
 }
-*/

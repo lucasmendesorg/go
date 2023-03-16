@@ -6,8 +6,9 @@ func MyFunc[T string | int](t T) {
 	fmt.Println("t =", t)
 }
 
-/*
+
 func main() {
 	MyFunc("It works!")
+	MyFunc(123)
 }
-*/
+

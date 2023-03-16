@@ -40,7 +40,7 @@ func (s *Queue) PushBack(value string) {
 func NewQueue() *Queue {
 	return &Queue{}
 }
-/*
+
 func main() {
 	q := NewQueue()
 	fmt.Println("s.IsEmpty() ==", q.IsEmpty())
@@ -56,4 +56,3 @@ func main() {
 	fmt.Println("t =", t);
 	q.Dump()
 }
-*/
